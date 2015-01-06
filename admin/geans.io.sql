@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 06, 2015 at 04:38 PM
+-- Generation Time: Jan 06, 2015 at 04:48 PM
 -- Server version: 5.5.40-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.5
 
@@ -42,14 +42,15 @@ CREATE TABLE IF NOT EXISTS `bs_address` (
   `zone_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`address_id`),
   KEY `customer_id` (`customer_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `bs_address`
 --
 
 INSERT INTO `bs_address` (`address_id`, `customer_id`, `firstname`, `lastname`, `company`, `company_id`, `tax_id`, `address_1`, `address_2`, `city`, `postcode`, `country_id`, `zone_id`) VALUES
-(1, 2, 'test', 'test', '', '', '', 'gbfhnhiolj', 'hchgjhc', 'hjhg', '0000', 230, 3776);
+(1, 2, 'test', 'test', '', '', '', 'gbfhnhiolj', 'hchgjhc', 'hjhg', '0000', 230, 3776),
+(2, 3, 'Samwise', 'Gangie', 'Hobbits', '', '', 'The Shire', '', 'Hobbiton', '', 153, 2362);
 
 -- --------------------------------------------------------
 
@@ -790,75 +791,6 @@ INSERT INTO `bs_currency` (`currency_id`, `title`, `code`, `symbol_left`, `symbo
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bs_custom_field`
---
-
-CREATE TABLE IF NOT EXISTS `bs_custom_field` (
-  `custom_field_id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` varchar(32) NOT NULL,
-  `value` text NOT NULL,
-  `required` tinyint(1) NOT NULL,
-  `location` varchar(32) NOT NULL,
-  `position` int(3) NOT NULL,
-  `sort_order` int(3) NOT NULL,
-  PRIMARY KEY (`custom_field_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `bs_custom_field_description`
---
-
-CREATE TABLE IF NOT EXISTS `bs_custom_field_description` (
-  `custom_field_id` int(11) NOT NULL,
-  `language_id` int(11) NOT NULL,
-  `name` varchar(128) NOT NULL,
-  PRIMARY KEY (`custom_field_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `bs_custom_field_to_customer_group`
---
-
-CREATE TABLE IF NOT EXISTS `bs_custom_field_to_customer_group` (
-  `custom_field_id` int(11) NOT NULL,
-  `customer_group_id` int(11) NOT NULL,
-  PRIMARY KEY (`custom_field_id`,`customer_group_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `bs_custom_field_value`
---
-
-CREATE TABLE IF NOT EXISTS `bs_custom_field_value` (
-  `custom_field_value_id` int(11) NOT NULL AUTO_INCREMENT,
-  `custom_field_id` int(11) NOT NULL,
-  `sort_order` int(3) NOT NULL,
-  PRIMARY KEY (`custom_field_value_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `bs_custom_field_value_description`
---
-
-CREATE TABLE IF NOT EXISTS `bs_custom_field_value_description` (
-  `custom_field_value_id` int(11) NOT NULL,
-  `language_id` int(11) NOT NULL,
-  `custom_field_id` int(11) NOT NULL,
-  `name` varchar(128) NOT NULL,
-  PRIMARY KEY (`custom_field_value_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `bs_customer`
 --
 
@@ -883,7 +815,7 @@ CREATE TABLE IF NOT EXISTS `bs_customer` (
   `token` varchar(255) NOT NULL,
   `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`customer_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `bs_customer`
@@ -891,7 +823,8 @@ CREATE TABLE IF NOT EXISTS `bs_customer` (
 
 INSERT INTO `bs_customer` (`customer_id`, `store_id`, `firstname`, `lastname`, `email`, `telephone`, `fax`, `password`, `salt`, `cart`, `wishlist`, `newsletter`, `address_id`, `customer_group_id`, `ip`, `status`, `approved`, `token`, `date_added`) VALUES
 (1, 0, 'test', 'test', 'test2@gmail.com', '1234567890', '', '16887d44e57cf69bc0ada72f4746ea9a13f2a9e2', '7d81cdd95', NULL, NULL, 1, 0, 1, '0', 1, 0, '', '2013-04-02 16:24:08'),
-(2, 0, 'test', 'test', 'test@gmail.com', '1234567890', '', '64de139185dda984d12f134d4a0460f92248fbc0', 'b1fafc76c', 'a:0:{}', 'a:1:{i:0;s:2:"51";}', 0, 1, 1, '::1', 1, 1, '', '2013-04-02 16:27:47');
+(2, 0, 'test', 'test', 'test@gmail.com', '1234567890', '', '64de139185dda984d12f134d4a0460f92248fbc0', 'b1fafc76c', 'a:0:{}', 'a:1:{i:0;s:2:"51";}', 0, 1, 1, '::1', 1, 1, '', '2013-04-02 16:27:47'),
+(3, 0, 'Samwise', 'Gangie', 'samg@lotr.org', '9098765432', '', '86af040a99661b92d324acd07575a198d745bfaf', '79ef5d048', 'a:0:{}', '', 1, 2, 1, '127.0.0.1', 1, 1, '', '2015-01-06 16:45:42');
 
 -- --------------------------------------------------------
 
@@ -994,14 +927,15 @@ CREATE TABLE IF NOT EXISTS `bs_customer_ip` (
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`customer_ip_id`),
   KEY `ip` (`ip`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `bs_customer_ip`
 --
 
 INSERT INTO `bs_customer_ip` (`customer_ip_id`, `customer_id`, `ip`, `date_added`) VALUES
-(1, 2, '::1', '2013-04-02 16:27:50');
+(1, 2, '::1', '2013-04-02 16:27:50'),
+(2, 3, '127.0.0.1', '2015-01-06 16:45:42');
 
 -- --------------------------------------------------------
 
@@ -1049,6 +983,75 @@ CREATE TABLE IF NOT EXISTS `bs_customer_transaction` (
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`customer_transaction_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bs_custom_field`
+--
+
+CREATE TABLE IF NOT EXISTS `bs_custom_field` (
+  `custom_field_id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(32) NOT NULL,
+  `value` text NOT NULL,
+  `required` tinyint(1) NOT NULL,
+  `location` varchar(32) NOT NULL,
+  `position` int(3) NOT NULL,
+  `sort_order` int(3) NOT NULL,
+  PRIMARY KEY (`custom_field_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bs_custom_field_description`
+--
+
+CREATE TABLE IF NOT EXISTS `bs_custom_field_description` (
+  `custom_field_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  PRIMARY KEY (`custom_field_id`,`language_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bs_custom_field_to_customer_group`
+--
+
+CREATE TABLE IF NOT EXISTS `bs_custom_field_to_customer_group` (
+  `custom_field_id` int(11) NOT NULL,
+  `customer_group_id` int(11) NOT NULL,
+  PRIMARY KEY (`custom_field_id`,`customer_group_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bs_custom_field_value`
+--
+
+CREATE TABLE IF NOT EXISTS `bs_custom_field_value` (
+  `custom_field_value_id` int(11) NOT NULL AUTO_INCREMENT,
+  `custom_field_id` int(11) NOT NULL,
+  `sort_order` int(3) NOT NULL,
+  PRIMARY KEY (`custom_field_value_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bs_custom_field_value_description`
+--
+
+CREATE TABLE IF NOT EXISTS `bs_custom_field_value_description` (
+  `custom_field_value_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `custom_field_id` int(11) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  PRIMARY KEY (`custom_field_value_id`,`language_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1826,7 +1829,7 @@ CREATE TABLE IF NOT EXISTS `bs_order` (
   `date_added` datetime NOT NULL,
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`order_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `bs_order`
@@ -1834,7 +1837,8 @@ CREATE TABLE IF NOT EXISTS `bs_order` (
 
 INSERT INTO `bs_order` (`order_id`, `invoice_no`, `invoice_prefix`, `store_id`, `store_name`, `store_url`, `customer_id`, `customer_group_id`, `firstname`, `lastname`, `email`, `telephone`, `fax`, `payment_firstname`, `payment_lastname`, `payment_company`, `payment_company_id`, `payment_tax_id`, `payment_address_1`, `payment_address_2`, `payment_city`, `payment_postcode`, `payment_country`, `payment_country_id`, `payment_zone`, `payment_zone_id`, `payment_address_format`, `payment_method`, `payment_code`, `shipping_firstname`, `shipping_lastname`, `shipping_company`, `shipping_address_1`, `shipping_address_2`, `shipping_city`, `shipping_postcode`, `shipping_country`, `shipping_country_id`, `shipping_zone`, `shipping_zone_id`, `shipping_address_format`, `shipping_method`, `shipping_code`, `comment`, `total`, `order_status_id`, `affiliate_id`, `commission`, `language_id`, `currency_id`, `currency_code`, `currency_value`, `ip`, `forwarded_ip`, `user_agent`, `accept_language`, `date_added`, `date_modified`) VALUES
 (1, 0, 'INV-2013-00', 0, 'Pav Bikestore - Responsive Opencart Theme', 'http://localhost/opencart/qs/pav_bikestore/', 2, 1, 'test', 'test', 'test@gmail.com', '1234567890', '', 'test', 'test', '', '', '', 'gbfhnhiolj', 'hchgjhc', 'hjhg', '0000', 'Viet Nam', 230, 'Ha Noi', 3776, '', 'Cash On Delivery', 'cod', 'test', 'test', '', 'gbfhnhiolj', 'hchgjhc', 'hjhg', '0000', 'Viet Nam', 230, 'Ha Noi', 3776, '', 'Flat Shipping Rate', 'flat.flat', 'rtshfnhjd', 2393.0000, 15, 0, 0.0000, 1, 2, 'USD', 1.00000000, '::1', '', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:19.0) Gecko/20100101 Firefox/19.0', 'en-US,en;q=0.5', '2013-04-02 16:28:11', '2013-04-02 16:32:10'),
-(2, 0, 'INV-2013-00', 0, 'Pav Bikestore - Responsive Opencart Theme', 'http://localhost/opencart/qs/pav_bikestore/', 2, 1, 'test', 'test', 'test@gmail.com', '1234567890', '', 'test', 'test', '', '', '', 'gbfhnhiolj', 'hchgjhc', 'hjhg', '0000', 'Viet Nam', 230, 'Ha Noi', 3776, '', 'Cash On Delivery', 'cod', 'test', 'test', '', 'gbfhnhiolj', 'hchgjhc', 'hjhg', '0000', 'Viet Nam', 230, 'Ha Noi', 3776, '', 'Flat Shipping Rate', 'flat.flat', '', 100.0000, 1, 0, 0.0000, 1, 2, 'USD', 1.00000000, '::1', '', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0', 'en-US,en;q=0.5', '2013-04-09 14:24:20', '2013-04-09 14:24:33');
+(2, 0, 'INV-2013-00', 0, 'Pav Bikestore - Responsive Opencart Theme', 'http://localhost/opencart/qs/pav_bikestore/', 2, 1, 'test', 'test', 'test@gmail.com', '1234567890', '', 'test', 'test', '', '', '', 'gbfhnhiolj', 'hchgjhc', 'hjhg', '0000', 'Viet Nam', 230, 'Ha Noi', 3776, '', 'Cash On Delivery', 'cod', 'test', 'test', '', 'gbfhnhiolj', 'hchgjhc', 'hjhg', '0000', 'Viet Nam', 230, 'Ha Noi', 3776, '', 'Flat Shipping Rate', 'flat.flat', '', 100.0000, 1, 0, 0.0000, 1, 2, 'USD', 1.00000000, '::1', '', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0', 'en-US,en;q=0.5', '2013-04-09 14:24:20', '2013-04-09 14:24:33'),
+(3, 0, 'Geansio-2013-00', 0, 'geans.io', 'http://localhost/geans.io/', 3, 1, 'Samwise', 'Gangie', 'samg@lotr.org', '9098765432', '', 'Samwise', 'Gangie', 'Hobbits', '', '', 'The Shire', '', 'Hobbiton', '', 'New Zealand', 153, 'West Coast', 2362, '', 'Cash On Delivery', 'cod', 'Samwise', 'Gangie', 'Hobbits', 'The Shire', '', 'Hobbiton', '', 'New Zealand', 153, 'West Coast', 2362, '', 'Flat Shipping Rate', 'flat.flat', 'I will pay exact cash amount.', 10.0000, 1, 0, 0.0000, 1, 4, 'INR', 63.41500092, '127.0.0.1', '', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:34.0) Gecko/20100101 Firefox/34.0', 'en-US,en;q=0.5', '2015-01-06 16:46:52', '2015-01-06 16:47:01');
 
 -- --------------------------------------------------------
 
@@ -1946,7 +1950,7 @@ CREATE TABLE IF NOT EXISTS `bs_order_history` (
   `comment` text NOT NULL,
   `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`order_history_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `bs_order_history`
@@ -1957,7 +1961,8 @@ INSERT INTO `bs_order_history` (`order_history_id`, `order_id`, `order_status_id
 (2, 1, 5, 0, '', '2013-04-02 16:30:50'),
 (3, 1, 15, 0, '', '2013-04-02 16:31:37'),
 (4, 1, 15, 1, '', '2013-04-02 16:32:10'),
-(5, 2, 1, 1, '', '2013-04-09 14:24:33');
+(5, 2, 1, 1, '', '2013-04-09 14:24:33'),
+(6, 3, 1, 1, '', '2015-01-06 16:47:01');
 
 -- --------------------------------------------------------
 
@@ -1995,7 +2000,7 @@ CREATE TABLE IF NOT EXISTS `bs_order_product` (
   `tax` decimal(15,4) NOT NULL DEFAULT '0.0000',
   `reward` int(8) NOT NULL,
   PRIMARY KEY (`order_product_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `bs_order_product`
@@ -2007,7 +2012,8 @@ INSERT INTO `bs_order_product` (`order_product_id`, `order_id`, `product_id`, `n
 (3, 1, 53, 'Donec lacinia volu', 'Product 4', 1, 98.0000, 98.0000, 0.0000, 0),
 (4, 1, 51, 'Sceleris tempus posue', 'Product5', 1, 95.0000, 95.0000, 0.0000, 0),
 (5, 1, 54, 'Risus viverra ullam', 'Product 5', 1, 95.0000, 95.0000, 0.0000, 0),
-(6, 2, 54, 'Risus viverra ullam', 'Product 5', 1, 95.0000, 95.0000, 0.0000, 0);
+(6, 2, 54, 'Risus viverra ullam', 'Product 5', 1, 95.0000, 95.0000, 0.0000, 0),
+(7, 3, 67, 'Plain T Black', 'g21', 1, 5.0000, 5.0000, 0.0000, 0);
 
 -- --------------------------------------------------------
 
@@ -2103,7 +2109,7 @@ CREATE TABLE IF NOT EXISTS `bs_order_total` (
   `sort_order` int(3) NOT NULL,
   PRIMARY KEY (`order_total_id`),
   KEY `idx_orders_total_orders_id` (`order_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `bs_order_total`
@@ -2115,7 +2121,10 @@ INSERT INTO `bs_order_total` (`order_total_id`, `order_id`, `code`, `title`, `te
 (3, 1, 'total', 'Total', '$2,393.00', 2393.0000, 9),
 (4, 2, 'sub_total', 'Sub-Total', '$95.00', 95.0000, 1),
 (5, 2, 'shipping', 'Flat Shipping Rate', '$5.00', 5.0000, 3),
-(6, 2, 'total', 'Total', '$100.00', 100.0000, 9);
+(6, 2, 'total', 'Total', '$100.00', 100.0000, 9),
+(7, 3, 'sub_total', 'Sub-Total', '₹317', 5.0000, 1),
+(8, 3, 'shipping', 'Flat Shipping Rate', '₹317', 5.0000, 3),
+(9, 3, 'total', 'Total', '₹634', 10.0000, 9);
 
 -- --------------------------------------------------------
 
@@ -2471,7 +2480,7 @@ INSERT INTO `bs_product` (`product_id`, `model`, `sku`, `upc`, `ean`, `jan`, `is
 (64, 'g24', '', '', '', '', '', '', '', 10, 5, 'data/yellow.jpg', 0, 1, 5.0000, 0, 0, '2015-01-05', 0.00000000, 1, 0.00000000, 0.00000000, 0.00000000, 1, 1, 1, 1, 1, '2015-01-06 15:36:19', '0000-00-00 00:00:00', 1),
 (65, 'g27', '', '', '', '', '', '', '', 10, 5, 'data/violet.jpg', 0, 1, 5.0000, 20, 0, '2015-01-05', 0.00000000, 1, 0.00000000, 0.00000000, 0.00000000, 1, 1, 1, 1, 1, '2015-01-06 15:36:28', '2015-01-06 15:38:56', 0),
 (66, 'g26', '', '', '', '', '', '', '', 10, 5, 'data/brown.jpg', 0, 1, 5.0000, 20, 0, '2015-01-05', 0.00000000, 1, 0.00000000, 0.00000000, 0.00000000, 1, 1, 1, 1, 1, '2015-01-06 15:36:35', '2015-01-06 15:39:07', 0),
-(67, 'g21', '', '', '', '', '', '', '', 10, 5, 'data/PLAIN_BLK_01.jpg', 0, 1, 5.0000, 20, 0, '2015-01-05', 0.00000000, 1, 0.00000000, 0.00000000, 0.00000000, 1, 1, 1, 1, 1, '2015-01-06 15:36:35', '2015-01-06 15:39:20', 0),
+(67, 'g21', '', '', '', '', '', '', '', 9, 5, 'data/PLAIN_BLK_01.jpg', 0, 1, 5.0000, 20, 0, '2015-01-05', 0.00000000, 1, 0.00000000, 0.00000000, 0.00000000, 1, 1, 1, 1, 1, '2015-01-06 15:36:35', '2015-01-06 15:39:20', 0),
 (68, 'g27', '', '', '', '', '', '', '', 10, 5, 'data/red.jpg', 0, 1, 5.0000, 20, 0, '2015-01-05', 0.00000000, 1, 0.00000000, 0.00000000, 0.00000000, 1, 1, 1, 1, 1, '2015-01-06 15:40:26', '2015-01-06 15:41:29', 0),
 (69, 'g28', '', '', '', '', '', '', '', 10, 5, 'data/cyan.jpg', 0, 1, 5.0000, 20, 0, '2015-01-05', 0.00000000, 1, 0.00000000, 0.00000000, 0.00000000, 1, 1, 1, 1, 1, '2015-01-06 15:40:26', '2015-01-06 15:41:18', 0),
 (70, 'g25', '', '', '', '', '', '', '', 10, 5, 'data/orange.jpg', 0, 1, 5.0000, 20, 0, '2015-01-05', 0.00000000, 1, 0.00000000, 0.00000000, 0.00000000, 1, 1, 1, 1, 0, '2015-01-06 15:40:26', '0000-00-00 00:00:00', 0),
