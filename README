@@ -3,7 +3,7 @@ Import database
 user "bike"
 pass "bike123"
 
-add privelages on geans.io database.
+add privileges on geans.io database.
 
 statup: <server>/geans.io
 
